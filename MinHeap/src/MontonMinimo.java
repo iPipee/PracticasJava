@@ -11,5 +11,6 @@ public class MontonMinimo {
         minheap.insertar(5);
         minheap.verArreglo();
         minheap.verArbol();
+        System.out.println(minheap.Size());
     }
 }
