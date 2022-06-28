@@ -40,7 +40,7 @@ public class ArbolAVL {
     public NodoArbolAVL rotacionDerecha(NodoArbolAVL r){
         NodoArbolAVL auxiliar = r.hijoDerecho;
         r.hijoDerecho = auxiliar.hijoIzquierdo;
-        auxiliar.hijoi = r;
+        auxiliar.hijoIzquierdo = r;
         r.fe = Math.max(obtenerFE(r.hijoIzquierdo), obtenerFE(r.hijoDerecho)) + 1;
         auxiliar.fe = Math.max(obtenerFE(auxiliar.hijoIzquierdo), obtenerFE(auxiliar.hijoDerecho)) + 1;
         return auxiliar;
