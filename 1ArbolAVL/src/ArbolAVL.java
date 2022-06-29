@@ -45,4 +45,25 @@ public class ArbolAVL {
         auxiliar.fe = Math.max(obtenerFE(auxiliar.hijoIzquierdo), obtenerFE(auxiliar.hijoDerecho)) + 1;
         return auxiliar;
     }
+
+    //Rotación doble derecha
+    public NodoArbolAVL rotacionDobleDerecha(NodoArbolAVL r){
+        NodoArbolAVL temporal;
+        r.hijoIzquierdo = rotacionDerecha(r.hijoIzquierdo);
+        temporal = rotacionIzquierda(r);
+        return temporal;
+    }
+
+    //Rotación doble izquierda
+    public NodoArbolAVL rotaciónDobleIzquierda(NodoArbolAVL r){
+        NodoArbolAVL temporal;
+        r.hijoDerecho = rotacionIzquierda(r.hijoDerecho);
+        temporal = rotacionDerecha(r);
+        return temporal;
+    }
+
+    //Método para insertar AVL
+    public NodoArbolAVL insertarAVL(NodoArbolAVL nuevo, NodoArbolAVL subAr){
+        NodoArbolAVL nuevoPadre = subAr;
+    }
 }
