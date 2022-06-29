@@ -116,4 +116,10 @@ public class ArbolAVL {
     }
 
     //Recorridos (Mismos que arboles binarios - Inorden - PreOrden - postOrden)
+    public void inOrden(NodoArbolAVL r){
+        if(r == null) return;
+        inOrden(r.hijoIzquierdo);
+        System.out.println(r.dato + " FE:" + r.fe);
+        inOrden(r.hijoDerecho);
+    }
 }
