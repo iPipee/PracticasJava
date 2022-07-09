@@ -5,6 +5,10 @@ public class ArbolAVL {
         this.raiz = null;
     }
 
+    public NodoArbolAVL obtenerRaiz(){
+        return raiz;
+    }
+
     public NodoArbolAVL buscar(NodoArbolAVL r, int d){
         if(r == null){
             return null;
@@ -46,7 +50,7 @@ public class ArbolAVL {
         return auxiliar;
     }
 
-    //Rotación doble derecha
+    //Rotación doble derecha Izquierda
     public NodoArbolAVL rotacionDobleDerecha(NodoArbolAVL r){
         NodoArbolAVL temporal;
         r.hijoIzquierdo = rotacionDerecha(r.hijoIzquierdo);
@@ -54,7 +58,7 @@ public class ArbolAVL {
         return temporal;
     }
 
-    //Rotación doble izquierda
+    //Rotación doble izquierda Derecha
     public NodoArbolAVL rotaciónDobleIzquierda(NodoArbolAVL r){
         NodoArbolAVL temporal;
         r.hijoDerecho = rotacionIzquierda(r.hijoDerecho);
