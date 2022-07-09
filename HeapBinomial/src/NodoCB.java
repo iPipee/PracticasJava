@@ -14,6 +14,14 @@ public class NodoCB {
         this.degree = degree;
     }
 
+    //Une dos arboles binomiales
+    public void BinomialLink(NodoCB z){
+        parent = z;
+        sibling = z.child;
+        z.child = this;
+        z.degree++;
+    }
+
     public int compareTo(NodoCB other){
         return this.key.compareTo(other.key);
     }
