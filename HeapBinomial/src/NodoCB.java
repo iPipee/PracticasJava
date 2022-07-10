@@ -2,7 +2,7 @@ public class NodoCB {
     NodoCB parent; //El padre
     NodoCB sibling; //El Hermano
     NodoCB child; //El Hijo
-    int key; //El dato
+    Integer key; //El dato
     short degree; //El grado
 
     //Constructor
@@ -15,7 +15,7 @@ public class NodoCB {
     }
 
     //Une dos arboles binomiales
-    public void BinomialLink(NodoCB z){
+    public void binomialLink(NodoCB z){
         parent = z;
         sibling = z.child;
         z.child = this;
@@ -24,6 +24,22 @@ public class NodoCB {
 
     public int compareTo(NodoCB other){
         return this.key.compareTo(other.key);
+    }
+
+    public void print(int level){
+        NodoCB curr = this;
+        while(curr != null){
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < level; i++) {
+                sb.append("    ");
+            }
+            sb.append(curr.key.toString());
+            System.out.println(sb.toString());
+            if(curr.child != null){
+                curr.child.print(level + 1);
+            }
+            curr = curr.sibling;
+        }
     }
     
 

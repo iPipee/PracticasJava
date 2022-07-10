@@ -14,8 +14,15 @@ public class HeapBinomial {
     //Inserción de un elemento en el HeapBinomial
     public void insert(int a){
         HeapBinomial temp = new HeapBinomial();
-        temp.head = new NodoCB(null,null,null, a, 0);
+        temp.head = new NodoCB(null,null,null, a, (short) 0);
         head = BinomialHeapUnion(temp);
+    }
+
+    public void print(){
+        System.out.println("Heap Binomial: ");
+        if(head != null){
+            head.print(0);
+        }
     }
     
     //Union (Fusion de dos colas binomiales)
@@ -62,11 +69,11 @@ public class HeapBinomial {
         NodoCB h1 = H1.head;
         NodoCB h2 = H2.head;
         if(h1 == null){
-            return h2;
+            return H2;
         }
 
         if(h2 == null){
-            return h1;
+            return H1;
         }
 
         HeapBinomial H = new HeapBinomial();
@@ -105,40 +112,21 @@ public class HeapBinomial {
         return H;
     }
 
-    private NodoCB BinomialHeapUnion(HeapBinomial H2){
-        HeapBinomial H = BinomialHeapMerge(this, H2);
-        if(H.head == null){
-            return null;
-        }
-
-        NodoCB anterior = null;
-        NodoCB actual = H.head;
-        NodoCB siguiente = actual.sibling;
-        while(siguiente != null){
-            if((actual.degree != siguiente.degree) || (siguiente.sibling != null && siguiente.sibling.degree == actual.degree)){
-                //Si los grados son distintos se avanza
-                anterior = actual;
-                actual = siguiente;
-            }else if (actual.key <= siguiente.key){//el valor de actual es menor al siguiente
-                //enlaza los hermanos para no perderlos
-                actual.sibling = siguiente.sibling;
-                //actual se une con el siguiente
-                siguiente.binomialLink(actual);
-            }else{//El valor de siguiente es menor que actual
-                //Enlaza los hermanos para no perderlos
-                if(anterior == null){
-                    H.head = siguiente;
-                }else{
-                    anterior.sibling = siguiente;
+    //Obtener el minimo
+    public Integer binomialHeapMinimum(){
+        if(head == null){
+            return -1;
+        }else{
+            NodoCB current = head;
+            int min = current.key;
+            while(current != null){
+                if(current.key < min){
+                    min = current.key;
                 }
-                //Siguiente se une con actual
-                actual.binomialLink(siguiente);
-                //el actual ahora es el siguiente (evita duplicidad)
-                actual = siguiente;
+                current = current.sibling;
             }
-            siguiente = actual.sibling;
+            return min;
         }
-        return H.head;
     }
 
 }
