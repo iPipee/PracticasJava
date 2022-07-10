@@ -1,6 +1,3 @@
-import org.w3c.dom.ls.LSParserFilter;
-import org.w3c.dom.traversal.NodeIterator;
-
 public class ArbolAVL {
     NodoAVL root;
 
@@ -149,6 +146,27 @@ public class ArbolAVL {
         //Se realiza la rotacion
         nuevaRaiz.right = nodoActual;
         nodoActual.left = temp;
+
+        //Actualizamos alturas
+        nodoActual.altura = Math.max(getAltura(nodoActual.left), getAltura(nodoActual.right) + 1);
+        nuevaRaiz.altura = Math.max(getAltura(nuevaRaiz.left), getAltura(nuevaRaiz.right)) + 1;
+
+        return nuevaRaiz;
+    }
+
+    private NodoAVL leftRotate(NodoAVL nodoActual){
+        NodoAVL nuevaRaiz = nodoActual.right;
+        NodoAVL temp = nuevaRaiz.left;
+
+        //Se realiza la rotacion
+        nuevaRaiz.left = nodoActual;
+        nodoActual.right = temp;
+
+        //Actualizamos alturas
+        nodoActual.altura = Math.max(getAltura(nodoActual.left), getAltura(nodoActual.right) + 1);
+        nuevaRaiz.altura = Math.max(getAltura(nuevaRaiz.left), getAltura(nuevaRaiz.right)) + 1;
+
+        return nuevaRaiz;
     }
 
 
