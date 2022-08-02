@@ -13,11 +13,13 @@ public class App {
         b.insert(21);
         b.insert(6);
         b.insert(15);
+        b.insert(15);
 
         //Muestra la cola binomial por pantalla
         b.print();
 
         System.out.println("El valor minimo del heap binomial es: "+b.binomialHeapMinimum());
+        
 
     }
 }

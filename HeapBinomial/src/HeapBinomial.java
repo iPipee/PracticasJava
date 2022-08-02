@@ -1,6 +1,7 @@
 public class HeapBinomial {
     //Puntero al primer arbol binomial de la cola
     NodoCB head;
+    int size;
 
     //Constructor
     public HeapBinomial(){
@@ -16,6 +17,7 @@ public class HeapBinomial {
         HeapBinomial temp = new HeapBinomial();
         temp.head = new NodoCB(null,null,null, a, (short) 0);
         head = BinomialHeapUnion(temp);
+        size++;
     }
 
     public void print(){
