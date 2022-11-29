@@ -126,7 +126,7 @@ public class ArbolAVL {
     //Caso rotacion doble izquierda derecha
     if(fe > 1 && getFactorEquilibrio(nodoActual.left) < 0){
         nodoActual.left = leftRotate(nodoActual.left);
-        return rightRotate;
+        return rightRotate(nodoActual);
     }
 
     //Caso rotacion doble derecha izquierda
@@ -185,5 +185,20 @@ public class ArbolAVL {
         }
 
         return (getAltura(nodoActual.left) - getAltura(nodoActual.right));
+    }
+
+    // Devuelve el mayor entre dos numeros
+    private int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+
+    private NodoAVL getNodoConValorMaximo(NodoAVL node) {
+        NodoAVL current = node;
+        
+        while (current.right != null){
+           current = current.right;
+        }
+        
+        return current;
     }
 }
