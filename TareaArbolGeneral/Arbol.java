@@ -1,3 +1,6 @@
+//Javier Soto, Felipe Toro y Jorge Jara
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -23,7 +26,7 @@ public class Arbol {
         }
     }
 
-    //Metodos para Meter nodos
+    //Metodos para añadir nodos
     public boolean newNode(Path p, String n){
         if(root == null){
             root = new NodoArbol(n, null, null);
@@ -37,6 +40,7 @@ public class Arbol {
             }
         }
     }
+
 
     private NodoArbol findNodo(String elPath) {
         NodoArbol tmp1 = root;
@@ -85,7 +89,45 @@ public class Arbol {
     }
 
 
-    //Metodos para imrpimir el arbol
+    //Metodo para deletear
+    public void Delete(Path p){
+        NodoArbol temp = findNodo(p.toString().replace("\\", "/"));         //devuelve el nodo hoja, que se quiere eliminar
+        String path = p.toString();
+        Path path2 = Paths.get(Path(String.valueOf(path.charAt(path.length()-3))));         //devuelve el path, el padre de la hoja que se quiere eliminar
+        NodoArbol papa = findNodo(path2.toString().replace("\\", "/"));     //devuelve el nodo del padre.
+        if (papa.hijo.nombre.equals(temp.nombre)){                                           //si el nodo que se busca, es hijo directo
+            papa.hijo = null;                                                                //del padre, que se elimine
+        }
+        NodoArbol aux = papa.hijo;
+        while(aux != null){                                                  //si no es hijo directo, que recorra los hermanos
+            if (aux.hermano.nombre.equals(temp.nombre)){                     //si el hermano del hermano es igual al nodo que se busca
+                aux.hermano = null;                                          //se setea como null, y termina la ejecucion, eliminando el nodo
+                break;
+            }
+            aux = aux.hermano;
+        }
+    }
+
+
+    //Metodos para calcular altura
+    public int Altura(){
+        return Depth(this.root);
+    }
+
+    private int Depth(NodoArbol n) {
+        int hi = -1;
+        int hd = -1;
+        if (n.hijo != null) {
+            hi = Depth(n.hijo);
+        }
+        if (n.hermano != null) {
+            hd = Depth(n.hermano) - 1;
+        }
+        return 1 + Math.max(hi, hd);
+    }
+
+
+    //Metodos para imprimir el arbol
     void Imprimir() {
         System.out.println("--------------------------");
         imprime(root," ");
@@ -103,8 +145,6 @@ public class Arbol {
 
 
 
-
-
     //Metodo preorderIterativo
     public void preorderIterativo() {
         if (root == null) {
@@ -114,20 +154,21 @@ public class Arbol {
         stack.push(root);
         while (!stack.empty())
         {
-            NodoArbol curr = stack.pop();
-            System.out.print(curr.nombre + " ");
-            if (curr.hermano!= null) {
-                stack.push(curr.hermano);
+            NodoArbol temp = stack.pop();
+            System.out.print(temp.nombre + " ");
+            if (temp.hermano!= null) {
+                stack.push(temp.hermano);
             }
-            if (curr.hijo != null) {
-                stack.push(curr.hijo);
+            if (temp.hijo != null) {
+                stack.push(temp.hijo);
             }
         }
     }
 
 
+
     //Metodos para imprimir por nivel
-    public void porNivel(NodoArbol root) {
+    public void porNivel() {
         int level = 1;
         while (printLevel(root, level)) {
             level++;
@@ -139,7 +180,6 @@ public class Arbol {
         if (root == null) {
             return false;
         }
-
         if (level == 1)
         {
             System.out.print(root.nombre + "-");
@@ -151,12 +191,16 @@ public class Arbol {
     }
 
     //Metodo calcular peso
-    public int peso(NodoArbol n) {
+    public int Peso(){
+        return size(root);
+    }
+
+    private int size(NodoArbol n) {
         if (n ==null){
             return 0;
         }
         else{
-            return 1 + (peso(n.hijo) + peso(n.hermano));
+            return 1 + (size(n.hijo) + size(n.hermano));
         }
     }
 
@@ -164,27 +208,27 @@ public class Arbol {
     //Intento de encontrar Path
     public String Path(String o){
         String path = "";
-        ArrayList<String> v = new ArrayList<>();
-        findPath(this.root, o, v);
-        for (int i = 0; i < v.size(); i++) {
-            path = path + "/" + v.get(i);
+        ArrayList<String> list = new ArrayList<>();
+        findPath(this.root, o, list);
+        for (int i = 0; i < list.size(); i++) {
+            path = path + "/" + list.get(i);
         }
         return path;
     }
 
-    private boolean findPath(NodoArbol root, String k, ArrayList<String> v){
+    private boolean findPath(NodoArbol root, String k, ArrayList<String> list){
         if(root==null){
             return false;
         }
-        v.add(root.nombre);
+        list.add(root.nombre);
         if(root.nombre.equals(k)){
             return true;
         }
-        if(findPath(root.hijo,k,v)){
+        if(findPath(root.hijo,k,list)){
             return true;
         }
-        v.remove(v.size()-1);
-        if (findPath(root.hermano,k,v)){
+        list.remove(list.size()-1);
+        if (findPath(root.hermano,k,list)){
             return true;
         }
         return false;
